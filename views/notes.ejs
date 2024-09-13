@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Notes</title>
+    <link href="/styles.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="star-layers">
+      <div class="star-layer" id="stars"></div>
+      <div class="star-layer" id="stars2"></div>
+      <div class="star-layer" id="stars3"></div>
+    </div>
+    <header style="padding: 10px">
+      <h1 id="nameHeading">Mohamed Adham</h1>
+      <h2 class="h2Heading">Books I've Read 📚</h2>
+      <p class="paragraph">
+        This page will constantly update as I read more, so bookmark it if you
+        want to check back in a few months.
+      </p>
+    </header>
+    <div class="container">
+      <ul>
+        <li>
+          <img
+            alt="Book Cover"
+            src="https://covers.openlibrary.org/b/isbn/<%= notes[0].isbn %>-L.jpg"
+            class="cover"
+          />
+          <h2 class="title"><%= notes[0].title %></h2>
+          <h3 class="author">By: <%= notes[0].author %></h3>
+          <small class="small-text"
+            >Date Created: <%= notes[0].date_created%>
+          </small>
+          <span class="rating"
+            >Rating:
+            <span style="color: #5d49f8"><%= notes[0].rating %></span>/10</span
+          >
+          <br />
+          <p class="content"><%= notes[0].body %></p>
+          <div class="buttoncontainer">
+            <a class="edit" href="/posts/edit/<%=notes[0].id%>">Edit</a>
+            <a class="delete" href="/posts/delete/<%=notes[0].id%>">Delete</a>
+          </div>
+        </li>
+      </ul>
+      <button class="submitBtn" id="noteBtn">New Note</button>
+      <div class="hidden">
+        <form action="/notes/<%= notes[0].id %>" method="post">
+          <div class="container">
+            <label class="newlabels"
+              >Book Quote "
+              <input
+                type="text"
+                class="qoute"
+                name="qoute"
+                placeholder="Be yourself; everyone else is already taken."
+                required
+            /> "</label>
+            <label class="newlabels">
+              Who Said it
+              <input
+                type="text"
+                class="note"
+                name="auth"
+                placeholder="Oscar Wilde."
+                required
+            /></label>
+            <label class="newlabels">
+              User's Note
+              <input
+                type="text"
+                class="note"
+                name="note"
+                placeholder="Love yourself <3"
+                required
+            /></label>
+            <input type="submit" class="submitBtn" />
+          </div>
+        </form>
+      </div>
+      <hr />
+      <ul>
+        <% if(locals.notes[0].qoute) {  notes.forEach(note => { %>
+        <li>
+          <h2 class="title" style="font-style: italic;">"<%= note.qoute %>"<span style="font-style: normal; color: #002a78;"> - <%= note.auth %></span></h2>
+          <h3 class="small-text" style="color: #5d49f8;"><%= note.note %></h3>
+          <div class="buttoncontainer" style="justify-content: flex-end;">
+            <a class="delete" href="/posts/delete/<%=note.id%>/<%=note.note_id%>">Delete</a>
+          </div>
+        </li>
+        <% }); %> <% } %>
+      </ul>
+    </div>
+
+    <footer>
+      <small
+        class="rating"
+        style="color: whitesmoke; text-align: center; margin-top: 10px"
+        >© Mohamed Adham 2024</small
+      >
+      <a href="https://openlibrary.org/dev/docs/api/covers"
+        ><small class="small-text" style="color: whitesmoke; text-align: center"
+          >Made using Open Library Covers API</small
+        ></a
+      >
+    </footer>
+    <script>
+      $(".hidden").hide();
+      $("#noteBtn").click(function () {
+        $(".hidden").slideToggle();
+      });
+    </script>
+  </body>
+</html>

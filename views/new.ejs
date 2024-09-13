@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Notes</title>
+    <link href="/styles.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="star-layers">
+      <div class="star-layer" id="stars"></div>
+      <div class="star-layer" id="stars2"></div>
+      <div class="star-layer" id="stars3"></div>
+    </div>
+    <header>
+      <h1 id="nameHeading">Mohamed Adham</h1>
+      <h2 class="h2Heading">Books I've Read 📚</h2>
+      <p class="paragraph">
+        This page will constantly update as I read more, so bookmark it if you
+        want to check back in a few months.
+      </p>
+    </header>
+    <div class="container">
+      <% if (locals.post) { %>
+      <h2
+        class="h2Heading"
+        style="color: #6753fc; font-family: Playfair Display"
+      >
+        Modify Post
+      </h2>
+      <hr />
+      <form method="post" action="/posts/<%=post[0].id%>" class="newForm">
+        <label id="titleLabel" class="newlabels">
+          Book Title
+          <input
+            type="text"
+            name="title"
+            class="newinput"
+            value="<%= post[0].title %>"
+            autofocus
+            required
+          />
+        </label>
+        <label id="authorLabel" class="newlabels"
+          >Book Author
+          <input
+            type="text"
+            name="author"
+            class="newinput"
+            value="<%= post[0].author %>"
+            required
+          />
+        </label>
+        <label id="bodyLabel" class="newlabels">
+          Review
+          <textarea rows="4" cols="50" name="body" required>
+          <%= post[0].body %></textarea
+          >
+        </label>
+        <label id="isbnLabel" class="newlabels">
+          ISBN-13(<a href="https://isbnsearch.org/">?</a>)
+          <input
+            type="text"
+            name="isbn"
+            class="newinput"
+            value="<%= post[0].isbn %>"
+            required
+          />
+        </label>
+        <label id="ratingLabel" class="newlabels">
+          Book Rating
+          <input
+            type="text"
+            name="rating"
+            class="newinput"
+            value="<%= post[0].rating %>"
+            required
+          />
+          /10
+        </label>
+        <input type="submit" class="submitBtn"/>
+      </form>
+      <% } else { %>
+      <h2
+        class="h2Heading"
+        style="color: #6753fc; font-family: Playfair Display"
+      >
+        Create New Post
+      </h2>
+      <hr />
+      <form method="post" action="/new" class="newForm">
+        <label id="titleLabel" class="newlabels">
+          Book Title
+          <input
+            type="text"
+            name="title"
+            class="newinput"
+            placeholder="Ex: Pride and Prejudice"
+            autofocus
+            required
+          />
+        </label>
+        <label id="authorLabel" class="newlabels"
+          >Book Author
+          <input
+            type="text"
+            name="author"
+            class="newinput"
+            placeholder="Ex: Jane Austen"
+            required
+          />
+        </label>
+        <label id="bodyLabel" class="newlabels">
+          Review
+          <textarea rows="4" cols="50" name="body" required></textarea>
+        </label>
+        <label id="isbnLabel" class="newlabels">
+          ISBN-13(<a href="https://isbnsearch.org/">?</a>)
+          <input
+            type="text"
+            name="isbn"
+            class="newinput"
+            placeholder="Ex: 9780141439518"
+            required
+          />
+        </label>
+        <label id="ratingLabel" class="newlabels">
+          Book Rating
+          <input
+            type="text"
+            name="rating"
+            class="newinput"
+            placeholder="Ex: 0-10.0"
+            required
+          />
+          /10
+        </label>
+        <input type="submit" class="submitBtn" />
+      </form>
+      <% }%>
+    </div>
+
+    <footer>
+      <small
+        class="rating"
+        style="color: whitesmoke; text-align: center; margin-top: 10px"
+        >© Mohamed Adham 2024</small
+      >
+      <a href="https://openlibrary.org/dev/docs/api/covers"
+        ><small class="small-text" style="color: whitesmoke; text-align: center"
+          >Made using Open Library Covers API</small
+        ></a
+      >
+    </footer>
+  </body>
+</html>

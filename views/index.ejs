@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Notes</title>
+    <link href="styles.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="star-layers">
+      <div class="star-layer" id="stars"></div>
+      <div class="star-layer" id="stars2"></div>
+      <div class="star-layer" id="stars3"></div>
+    </div>
+    <header style="padding: 10px">
+      <h1 id="nameHeading">Mohamed Adham</h1>
+      <h2 class="h2Heading">Books I've Read 📚</h2>
+      <p class="paragraph">
+        This page will constantly update as I read more, so bookmark it if you
+        want to check back in a few months.
+      </p>
+      <form class="sort tab-view" method="POST" action="/sort">
+        <label id="ratingSortLabel"
+          >Highest Rating
+          <input
+            type="submit"
+            name="sort"
+            value="ratingSort"
+            hidden
+            id="sortBtn"
+        /></label>
+
+        <label id="dateSortLabel"
+          >Newest<input
+            type="submit"
+            name="sort"
+            value="dateSort"
+            hidden
+            class="sortBtn"
+        /></label>
+
+        <label id="titleSortLabel"
+          >By Title<input
+            type="submit"
+            name="sort"
+            value="titleSort"
+            hidden
+            class="sortBtn"
+        /></label>
+      </form>
+    </header>
+    <form class="newPostContainer" method="GET" action="/new">
+      <label class="sortBtn" id="newPostLabel">
+        <input type="submit" hidden /><img src="/images/card-heading.svg" />
+        Create Post
+      </label>
+    </form>
+    <div class="container">
+      <ul>
+        <% if (locals.error) { %>
+        <h2
+          class="h2Heading"
+          style="text-align: center; color: black !important"
+        >
+          <%= error %>
+        </h2>
+        <% } else { %> <% if(locals.posts){ %> <% posts.forEach((post)=>{ %>
+        <li>
+          <a href="/posts/<%=post.id%>">
+            <img
+              alt="Book Cover"
+              src="https://covers.openlibrary.org/b/isbn/<%= post.isbn %>-L.jpg"
+              class="cover"
+            />
+            <h2 class="title"><%= post.title %></h2>
+            <h3 class="author">By: <%= post.author %></h3>
+            <small class="small-text"
+              >Date Created: <%= post.date_created%>
+            </small>
+            <span class="rating"
+              >Rating:
+              <span style="color: #5d49f8"><%= post.rating %></span>/10</span
+            >
+            <br />
+            <p class="content"><%= post.body %></p></a
+          >
+          <div class="buttoncontainer">
+            <a class="edit" href="posts/edit/<%=post.id%>">Edit</a>
+            <a class="delete" href="posts/delete/<%=post.id%>">Delete</a>
+          </div>
+        </li>
+        <% }) %>
+      </ul>
+      <% } else{ %>
+      <h2 class="h2Heading" style="text-align: center; color: black !important">
+        No Posts to show...
+      </h2>
+      <% } }%>
+    </div>
+
+    <footer>
+      <small
+        class="rating"
+        style="color: whitesmoke; text-align: center; margin-top: 10px"
+        >© Mohamed Adham 2024</small
+      >
+      <a href="https://openlibrary.org/dev/docs/api/covers"
+        ><small class="small-text" style="color: whitesmoke; text-align: center"
+          >Made using Open Library Covers API</small
+        ></a
+      >
+    </footer>
+  </body>
+</html>
